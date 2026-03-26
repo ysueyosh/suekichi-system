@@ -1,6 +1,6 @@
-import React from "react";
-import { notFound } from "next/navigation";
-import Link from "next/link";
+import React from 'react';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import {
   Container,
   Typography,
@@ -13,15 +13,17 @@ import {
   ListItemText,
   Button,
   Divider,
-} from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CodeIcon from "@mui/icons-material/Code";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import BuildIcon from "@mui/icons-material/Build";
-import { worksData } from "../../../lib/works";
-import { ScrollReveal } from "../../../components/ui/ScrollReveal";
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CodeIcon from '@mui/icons-material/Code';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import BuildIcon from '@mui/icons-material/Build';
+import { worksData } from '../../../lib/works';
+import { ScrollReveal } from '../../../components/ui/ScrollReveal';
+
+export const runtime = 'edge';
 
 export async function generateMetadata({
   params,
@@ -30,7 +32,7 @@ export async function generateMetadata({
 }) {
   const { id } = await params;
   const work = worksData.find((w) => w.id === id);
-  if (!work) return { title: "Works Detail" };
+  if (!work) return { title: 'Works Detail' };
   return {
     title: `${work.title} | SUEKICHI SYSTEM`,
     description: work.summary,
@@ -55,7 +57,7 @@ export default async function WorkDetailPage({
         <ScrollReveal animation="fade">
           <div>
             <Box mb={6}>
-              <Link href="/works" passHref style={{ textDecoration: "none" }}>
+              <Link href="/works" passHref style={{ textDecoration: 'none' }}>
                 <Button startIcon={<ArrowBackIcon />}>一覧に戻る</Button>
               </Link>
             </Box>
@@ -65,7 +67,7 @@ export default async function WorkDetailPage({
               component="h1"
               gutterBottom
               fontWeight="bold"
-              sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
             >
               {work.title}
             </Typography>
@@ -86,14 +88,14 @@ export default async function WorkDetailPage({
               elevation={0}
               sx={{
                 height: 400,
-                bgcolor: "action.hover", // theme aware
+                bgcolor: 'action.hover', // theme aware
                 borderRadius: 4,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 mb: 8,
-                border: "1px solid",
-                borderColor: "divider",
+                border: '1px solid',
+                borderColor: 'divider',
               }}
             >
               <Typography variant="h4" color="text.secondary">
@@ -107,8 +109,8 @@ export default async function WorkDetailPage({
                 gutterBottom
                 fontWeight="bold"
                 sx={{
-                  borderLeft: "6px solid",
-                  borderColor: "primary.main",
+                  borderLeft: '6px solid',
+                  borderColor: 'primary.main',
                   pl: 2,
                 }}
               >
@@ -124,9 +126,9 @@ export default async function WorkDetailPage({
               sx={{
                 p: 4,
                 mb: 8,
-                bgcolor: "background.paper",
-                border: "1px solid",
-                borderColor: "divider",
+                bgcolor: 'background.paper',
+                border: '1px solid',
+                borderColor: 'divider',
                 borderRadius: 4,
               }}
             >
@@ -159,7 +161,7 @@ export default async function WorkDetailPage({
                       </ListItemIcon>
                       <ListItemText
                         primary={item}
-                        primaryTypographyProps={{ variant: "body1" }}
+                        primaryTypographyProps={{ variant: 'body1' }}
                       />
                     </ListItem>
                   ))}
