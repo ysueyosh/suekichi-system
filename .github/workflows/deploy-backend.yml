@@ -1,0 +1,139 @@
+name: Deploy Backend (API Gateway + Lambda)
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - backend/contact-api-template.yaml
+      - backend/lambda/**
+      - .github/workflows/deploy-backend.yml
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-dev:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      - name: Detect requirements change
+        id: req_changed
+        uses: tj-actions/changed-files@v45
+        with:
+          files: backend/lambda/requirements.txt
+
+      - name: Restore layer cache
+        id: layer_cache
+        uses: actions/cache@v4
+        with:
+          path: backend/layer/python
+          key: ${{ runner.os }}-dev-contact-layer-${{ hashFiles('backend/lambda/requirements.txt') }}
+
+      - name: Build layer dependencies
+        if: steps.req_changed.outputs.any_changed == 'true' || steps.layer_cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r backend/lambda/requirements.txt -t backend/layer/python
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Build SAM app
+        run: sam build -t backend/contact-api-template.yaml
+
+      - name: Deploy to dev
+        run: |
+          sam deploy \
+            --template-file .aws-sam/build/template.yaml \
+            --stack-name suekichi-contact-api-dev \
+            --resolve-s3 \
+            --capabilities CAPABILITY_IAM \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides \
+              EnvironmentName='dev' \
+              SourceEmail='${{ secrets.SOURCE_EMAIL }}' \
+              DestinationEmail='${{ secrets.DESTINATION_EMAIL }}' \
+              AllowedOrigin='${{ vars.ALLOWED_ORIGIN }}' \
+              DryRun='false'
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      - name: Detect requirements change
+        id: req_changed
+        uses: tj-actions/changed-files@v45
+        with:
+          files: backend/lambda/requirements.txt
+
+      - name: Restore layer cache
+        id: layer_cache
+        uses: actions/cache@v4
+        with:
+          path: backend/layer/python
+          key: ${{ runner.os }}-prod-contact-layer-${{ hashFiles('backend/lambda/requirements.txt') }}
+
+      - name: Build layer dependencies
+        if: steps.req_changed.outputs.any_changed == 'true' || steps.layer_cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r backend/lambda/requirements.txt -t backend/layer/python
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Build SAM app
+        run: sam build -t backend/contact-api-template.yaml
+
+      - name: Deploy to prod
+        run: |
+          sam deploy \
+            --template-file .aws-sam/build/template.yaml \
+            --stack-name suekichi-contact-api-prod \
+            --resolve-s3 \
+            --capabilities CAPABILITY_IAM \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides \
+              EnvironmentName='prod' \
+              SourceEmail='${{ secrets.SOURCE_EMAIL }}' \
+              DestinationEmail='${{ secrets.DESTINATION_EMAIL }}' \
+              AllowedOrigin='${{ vars.ALLOWED_ORIGIN }}' \
+              DryRun='false'

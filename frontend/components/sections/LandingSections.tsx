@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 import {
   Box,
   Typography,
@@ -9,15 +9,16 @@ import {
   useTheme,
   Container,
   Stack,
-} from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import SpeedIcon from "@mui/icons-material/Speed";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import CodeIcon from "@mui/icons-material/Code";
-import EmailIcon from "@mui/icons-material/Email";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { ScrollReveal } from "../ui/ScrollReveal";
+} from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import SpeedIcon from '@mui/icons-material/Speed';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import CodeIcon from '@mui/icons-material/Code';
+import EmailIcon from '@mui/icons-material/Email';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import BoltIcon from '@mui/icons-material/Bolt';
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 // Custom Grid Components to avoid MUI Grid version issues
 interface GridContainerProps {
@@ -30,13 +31,13 @@ interface GridContainerProps {
 const GridContainer = ({
   children,
   spacing = 2,
-  alignItems = "stretch",
-  justifyContent = "center",
+  alignItems = 'stretch',
+  justifyContent = 'center',
 }: GridContainerProps) => (
   <Box
     sx={{
-      display: "flex",
-      flexWrap: "wrap",
+      display: 'flex',
+      flexWrap: 'wrap',
       mx: -spacing,
       width: `calc(100% + ${spacing * 16}px)`,
       alignItems,
@@ -75,7 +76,7 @@ const GridItem = ({
         },
         px: spacing,
         pb: spacing * 2,
-        boxSizing: "border-box",
+        boxSizing: 'border-box',
       }}
     >
       {children}
@@ -87,11 +88,11 @@ const GridItem = ({
 const SectionHeader = ({
   title,
   subtitle,
-  color = "primary",
+  color = 'primary',
 }: {
   title: string;
   subtitle?: string;
-  color?: "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
 }) => {
   return (
     <Box mb={8} textAlign="center">
@@ -101,7 +102,7 @@ const SectionHeader = ({
           color="text.secondary"
           display="block"
           gutterBottom
-          sx={{ letterSpacing: "0.2em", textTransform: "uppercase", mb: 1 }}
+          sx={{ letterSpacing: '0.2em', textTransform: 'uppercase', mb: 1 }}
         >
           {subtitle}
         </Typography>
@@ -110,10 +111,10 @@ const SectionHeader = ({
         variant="h3"
         color="text.primary"
         sx={{
-          fontFamily: "var(--font-senobi-gothic)",
+          fontFamily: 'var(--font-senobi-gothic)',
           fontWeight: 700,
-          letterSpacing: "0.05em",
-          fontSize: { xs: "1.8rem", md: "2.5rem" },
+          letterSpacing: '0.05em',
+          fontSize: { xs: '1.8rem', md: '2.5rem' },
         }}
       >
         {title}
@@ -123,7 +124,7 @@ const SectionHeader = ({
           width: 60,
           height: 4,
           bgcolor: `${color}.main`,
-          mx: "auto",
+          mx: 'auto',
           mt: 2,
           borderRadius: 2,
         }}
@@ -136,7 +137,7 @@ const SectionHeader = ({
 export const ProblemSection = () => {
   const theme = useTheme();
   return (
-    <Box py={12} sx={{ bgcolor: "background.default" }}>
+    <Box py={12} sx={{ bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
         <ScrollReveal animation="fade">
           <SectionHeader
@@ -148,9 +149,12 @@ export const ProblemSection = () => {
 
         <GridContainer spacing={2}>
           {[
-            { title: "開発会社への見積もりが高すぎる", icon: "💸" },
-            { title: "個人のフリーランスだと品質が不安", icon: "🤔" },
-            { title: "やりとりが遅く、ストレスが溜まる", icon: "🐢" },
+            {
+              title: '見積もりと運用コストが想定より重い',
+              icon: '💰',
+            },
+            { title: '現場に定着せず、結局使われなくなる', icon: '🧩' },
+            { title: '費用をかけても成果が伸びない', icon: '📉' },
           ].map((item, index) => (
             <GridItem xs={12} md={4} key={index} spacing={2}>
               <ScrollReveal
@@ -162,13 +166,13 @@ export const ProblemSection = () => {
                   elevation={0}
                   sx={{
                     p: 4,
-                    textAlign: "center",
-                    height: "100%",
-                    bgcolor: "rgba(255,0,0,0.02)",
+                    textAlign: 'center',
+                    height: '100%',
+                    bgcolor: 'rgba(255,0,0,0.02)',
                     border: `1px solid ${theme.palette.divider}`,
                     borderRadius: 8,
-                    transition: "transform 0.3s",
-                    "&:hover": { transform: "translateY(-5px)" },
+                    transition: 'transform 0.3s',
+                    '&:hover': { transform: 'translateY(-5px)' },
                   }}
                 >
                   <Typography variant="h1" sx={{ mb: 2 }}>
@@ -177,7 +181,7 @@ export const ProblemSection = () => {
                   <Typography
                     variant="h6"
                     fontWeight="bold"
-                    sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+                    sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
                   >
                     {item.title}
                   </Typography>
@@ -195,7 +199,7 @@ export const ProblemSection = () => {
 export const SolutionSection = () => {
   const theme = useTheme();
   return (
-    <Box py={16} sx={{ bgcolor: "rgba(0,85,170,0.03)" }}>
+    <Box py={16} sx={{ bgcolor: 'rgba(0,85,170,0.03)' }}>
       <Container maxWidth="md">
         <ScrollReveal animation="fade">
           <SectionHeader
@@ -205,30 +209,30 @@ export const SolutionSection = () => {
           />
         </ScrollReveal>
 
-        <Box sx={{ position: "relative", p: { xs: 2, md: 6 } }}>
+        <Box sx={{ position: 'relative', p: { xs: 2, md: 6 } }}>
           <Paper
             elevation={0}
             sx={{
               p: { xs: 4, md: 8 },
               borderRadius: 12,
-              bgcolor: "white",
+              bgcolor: 'white',
               border: `2px solid ${theme.palette.primary.light}`,
-              boxShadow: "0 20px 60px rgba(0,85,170,0.1)",
+              boxShadow: '0 20px 60px rgba(0,85,170,0.1)',
             }}
           >
             <Stack spacing={6}>
               {[
                 {
-                  title: "中間マージンを完全カット",
-                  desc: "営業・PM・開発をワンストップで行うため、余計なコストが発生しません。大手企業の約1/3〜1/2の価格で提供可能です。",
+                  title: '中間マージンを完全カット',
+                  desc: '営業・PM・開発をワンストップで行うため、余計なコストが発生しません。大手企業の約1/3〜1/2の価格で提供可能です。',
                 },
                 {
-                  title: "全てを「スエキチ」が担当",
-                  desc: "ヒアリングから納品まで、私（スエキチ）が責任を持って担当します。「担当者がコロコロ変わる」「伝言ゲームになる」といったストレスは一切ありません。",
+                  title: '全てを「スエキチ」が担当',
+                  desc: 'ヒアリングから納品まで、私（スエキチ）が責任を持って担当します。「担当者がコロコロ変わる」「伝言ゲームになる」といったストレスは一切ありません。',
                 },
                 {
-                  title: "AI駆動による超高速開発",
-                  desc: "生成AIを開発プロセスにフル活用することで、コーディング速度を劇的に向上。一般的な開発会社の数倍のスピード感で納品可能です。",
+                  title: 'AI駆動による超高速開発',
+                  desc: '生成AIで実装速度を引き上げつつ、仕様駆動を組み合わせて要件に沿った開発を徹底。手戻りを減らし、品質を保ったまま納品スピードを高めます。',
                 },
               ].map((sol, i) => (
                 <Box key={i} display="flex" gap={2} alignItems="flex-start">
@@ -241,7 +245,7 @@ export const SolutionSection = () => {
                       variant="h5"
                       gutterBottom
                       sx={{
-                        fontFamily: "var(--font-senobi-gothic)",
+                        fontFamily: 'var(--font-senobi-gothic)',
                         fontWeight: 700,
                       }}
                     >
@@ -257,6 +261,24 @@ export const SolutionSection = () => {
                   </Box>
                 </Box>
               ))}
+
+              <Box textAlign="center" pt={2}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  endIcon={<ArrowForwardIcon />}
+                  href="/contact"
+                  sx={{
+                    borderRadius: 50,
+                    px: 5,
+                    py: 1.5,
+                    fontFamily: 'var(--font-senobi-gothic)',
+                    fontWeight: 700,
+                  }}
+                >
+                  悩みを相談する
+                </Button>
+              </Box>
             </Stack>
           </Paper>
         </Box>
@@ -278,40 +300,45 @@ export const FeaturesSection = () => {
         <GridContainer spacing={2}>
           {[
             {
-              title: "高品質設計",
+              title: '高品質設計',
               icon: <CodeIcon fontSize="large" />,
-              desc: "変更に強い堅牢なコード",
+              desc: '変更に強い堅牢なコード',
             },
             {
-              title: "AI × 高速開発",
+              title: 'AI × 高速開発',
               icon: <SpeedIcon fontSize="large" />,
-              desc: "最新技術で工数を極小化",
+              desc: '最新技術で工数を極小化',
             },
             {
-              title: "柔軟な仕様変更",
+              title: '柔軟な仕様変更',
               icon: <TrendingUpIcon fontSize="large" />,
-              desc: "アジャイルな開発進行",
+              desc: 'アジャイルな開発進行',
             },
             {
-              title: "コスト最適化",
+              title: 'コスト最適化',
               icon: <VolunteerActivismIcon fontSize="large" />,
-              desc: "無駄を削ぎ落とした価格",
+              desc: '無駄を削ぎ落とした価格',
+            },
+            {
+              title: '低コスト・高効果の改善提案',
+              icon: <BoltIcon fontSize="large" />,
+              desc: '小さく導入して成果を素早く出す',
             },
           ].map((feat, i) => (
-            <GridItem xs={12} sm={6} md={3} key={i} spacing={2}>
+            <GridItem xs={12} sm={6} md={4} key={i} spacing={2}>
               <ScrollReveal animation="zoom" delay={i * 100}>
                 <Paper
                   elevation={0}
                   sx={{
                     p: 4,
-                    textAlign: "center",
+                    textAlign: 'center',
                     borderRadius: 8,
-                    height: "100%",
-                    bgcolor: "#fffbf0", // 淡いオレンジ
-                    transition: "all 0.3s",
-                    "&:hover": {
-                      transform: "scale(1.05)",
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                    height: '100%',
+                    bgcolor: '#fffbf0', // 淡いオレンジ
+                    transition: 'all 0.3s',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
                     },
                   }}
                 >
@@ -322,7 +349,7 @@ export const FeaturesSection = () => {
                     variant="h6"
                     gutterBottom
                     sx={{
-                      fontFamily: "var(--font-senobi-gothic)",
+                      fontFamily: 'var(--font-senobi-gothic)',
                       fontWeight: 700,
                     }}
                   >
@@ -343,7 +370,7 @@ export const FeaturesSection = () => {
 
 // --- 4. Visual Section ---
 const VisualBox = ({
-  color = "#ddd",
+  color = '#ddd',
   label,
 }: {
   color?: string;
@@ -354,21 +381,21 @@ const VisualBox = ({
   return (
     <Box
       sx={{
-        width: "100%",
+        width: '100%',
         height: 300,
         bgcolor: color,
         borderRadius: 8,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         boxShadow: theme.shadows[4],
       }}
     >
       <Typography
         variant="h4"
-        sx={{ opacity: 0.3, fontFamily: "var(--font-senobi-gothic)" }}
+        sx={{ opacity: 0.3, fontFamily: 'var(--font-senobi-gothic)' }}
       >
-        {label} No Image
+        {label}
       </Typography>
     </Box>
   );
@@ -376,13 +403,13 @@ const VisualBox = ({
 
 export const VisualSection = () => {
   return (
-    <Box py={12} sx={{ overflow: "hidden" }}>
+    <Box py={12} sx={{ overflow: 'hidden' }}>
       <Container maxWidth="lg">
         <Stack spacing={12}>
           {/* Item 1 */}
           <Box
             display="flex"
-            flexDirection={{ xs: "column", md: "row" }}
+            flexDirection={{ xs: 'column', md: 'row' }}
             alignItems="center"
             gap={6}
           >
@@ -393,7 +420,7 @@ export const VisualSection = () => {
                     variant="h4"
                     gutterBottom
                     sx={{
-                      fontFamily: "var(--font-senobi-gothic)",
+                      fontFamily: 'var(--font-senobi-gothic)',
                       fontWeight: 700,
                     }}
                   >
@@ -407,6 +434,7 @@ export const VisualSection = () => {
                     ユーザーが迷わない、直感的で美しいインターフェース。
                     目的の情報に最短でたどり着ける導線設計を心がけています。
                     見た目の美しさだけでなく、使い勝手を最優先に考えたデザインを提供します。
+                    現場の運用フローに見合ったシステム設計まで一貫して行い、導入後も使われ続ける仕組みを構築します。
                   </Typography>
                 </Box>
               </ScrollReveal>
@@ -421,7 +449,83 @@ export const VisualSection = () => {
           {/* Item 2 */}
           <Box
             display="flex"
-            flexDirection={{ xs: "column", md: "row" }}
+            flexDirection={{ xs: 'column', md: 'row' }}
+            alignItems="center"
+            gap={6}
+          >
+            <Box flex={1} order={{ xs: 2, md: 1 }}>
+              <ScrollReveal animation="slide" direction="right">
+                <Box>
+                  <Typography
+                    variant="h4"
+                    gutterBottom
+                    sx={{
+                      fontFamily: 'var(--font-senobi-gothic)',
+                      fontWeight: 700,
+                    }}
+                  >
+                    現場に見合ったシステム開発
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ lineHeight: 2 }}
+                  >
+                    実際の運用フローを前提に、使われることを重視したシステムを設計・実装します。
+                    業務に合わせた画面設計とデータ設計で、導入後の定着率と改善スピードを高めます。
+                  </Typography>
+                </Box>
+              </ScrollReveal>
+            </Box>
+            <Box flex={1} order={{ xs: 1, md: 2 }}>
+              <ScrollReveal animation="slide" direction="left">
+                <VisualBox color="#fff4e5" label="Field Fit" />
+              </ScrollReveal>
+            </Box>
+          </Box>
+
+          {/* Item 3 */}
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', md: 'row' }}
+            alignItems="center"
+            gap={6}
+          >
+            <Box flex={1}>
+              <ScrollReveal animation="slide" direction="right">
+                <VisualBox color="#e8f5e9" label="AI Feature" />
+              </ScrollReveal>
+            </Box>
+            <Box flex={1}>
+              <ScrollReveal animation="slide" direction="left">
+                <Box>
+                  <Typography
+                    variant="h4"
+                    gutterBottom
+                    sx={{
+                      fontFamily: 'var(--font-senobi-gothic)',
+                      fontWeight: 700,
+                    }}
+                  >
+                    低コストで実現するAI機能開発
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ lineHeight: 2 }}
+                  >
+                    AI機能の導入も、必要な範囲を見極めて段階的に実装することで費用を最適化します。
+                    「AIは高い」という認識を覆し、実運用で効果が出る機能を無理のない予算で提供します。
+                  </Typography>
+                </Box>
+              </ScrollReveal>
+            </Box>
+          </Box>
+
+          {/* Item 4 */}
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', md: 'row' }}
             alignItems="center"
             gap={6}
           >
@@ -437,7 +541,7 @@ export const VisualSection = () => {
                     variant="h4"
                     gutterBottom
                     sx={{
-                      fontFamily: "var(--font-senobi-gothic)",
+                      fontFamily: 'var(--font-senobi-gothic)',
                       fontWeight: 700,
                     }}
                   >
@@ -465,29 +569,66 @@ export const VisualSection = () => {
 // --- 5. Stats Section ---
 export const StatsSection = () => {
   return (
-    <Box py={10} sx={{ bgcolor: "text.primary", color: "white" }}>
+    <Box py={10} sx={{ bgcolor: 'text.primary', color: 'white' }}>
       <Container maxWidth="lg">
-        <SectionHeader title="数字で見る実績" color="primary" />
+        <Box mb={8} textAlign="center">
+          <Typography
+            variant="caption"
+            display="block"
+            gutterBottom
+            sx={{
+              color: 'rgba(255,255,255,0.72)',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              mb: 1,
+            }}
+          >
+            ACHIEVEMENTS
+          </Typography>
+          <Typography
+            variant="h3"
+            sx={{
+              fontFamily: 'var(--font-senobi-gothic)',
+              fontWeight: 700,
+              letterSpacing: '0.05em',
+              fontSize: { xs: '1.8rem', md: '2.5rem' },
+              color: '#f6f9ff',
+            }}
+          >
+            数字で見る実績
+          </Typography>
+          <Box
+            sx={{
+              width: 60,
+              height: 4,
+              bgcolor: 'primary.light',
+              mx: 'auto',
+              mt: 2,
+              borderRadius: 2,
+            }}
+          />
+        </Box>
         <GridContainer spacing={4} justifyContent="center" alignItems="center">
           {[
-            { label: "開発案件数", value: "30+", unit: "件" },
-            { label: "継続依頼率", value: "90", unit: "%" },
-            { label: "平均納期短縮", value: "2", unit: "週間" },
+            { label: '開発案件数', value: '30+', unit: '件' },
+            { label: '継続依頼率', value: '90', unit: '%' },
+            { label: '契約～納品', value: '2', unit: '週間' },
           ].map((stat, i) => (
             <GridItem xs={12} md={4} key={i} spacing={4}>
               <Box textAlign="center">
-                <Typography variant="body1" sx={{ opacity: 0.7, mb: 1 }}>
+                <Typography variant="body1" sx={{ color: '#d8e3f4', mb: 1 }}>
                   {stat.label}
                 </Typography>
                 <Typography
                   variant="h2"
                   sx={{
-                    fontFamily: "var(--font-senobi-gothic)",
+                    fontFamily: 'var(--font-senobi-gothic)',
                     fontWeight: 700,
+                    color: '#ffffff',
                   }}
                 >
                   {stat.value}
-                  <span style={{ fontSize: "1.5rem" }}>{stat.unit}</span>
+                  <span style={{ fontSize: '1.5rem' }}>{stat.unit}</span>
                 </Typography>
               </Box>
             </GridItem>
@@ -502,7 +643,7 @@ export const StatsSection = () => {
 export const CTASection = () => {
   // const theme = useTheme(); // 未使用なので削除
   return (
-    <Box py={16} textAlign="center" sx={{ bgcolor: "background.paper" }}>
+    <Box py={16} textAlign="center" sx={{ bgcolor: 'background.paper' }}>
       <Container maxWidth="md">
         <ScrollReveal animation="zoom">
           <Box>
@@ -510,7 +651,7 @@ export const CTASection = () => {
               variant="h3"
               gutterBottom
               sx={{
-                fontFamily: "var(--font-senobi-gothic)",
+                fontFamily: 'var(--font-senobi-gothic)',
                 fontWeight: 700,
                 mb: 4,
               }}
@@ -528,7 +669,7 @@ export const CTASection = () => {
             </Typography>
 
             <Stack
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: 'column', sm: 'row' }}
               spacing={3}
               justifyContent="center"
               alignItems="center"
@@ -542,10 +683,10 @@ export const CTASection = () => {
                   py: 2,
                   px: 6,
                   borderRadius: 50,
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  fontFamily: "var(--font-senobi-gothic)",
-                  boxShadow: "0 4px 20px rgba(0,85,170,0.3)",
+                  fontSize: '1.2rem',
+                  fontWeight: 'bold',
+                  fontFamily: 'var(--font-senobi-gothic)',
+                  boxShadow: '0 4px 20px rgba(0,85,170,0.3)',
                   minWidth: 280,
                 }}
               >
@@ -560,10 +701,10 @@ export const CTASection = () => {
                   py: 2,
                   px: 6,
                   borderRadius: 50,
-                  fontSize: "1.1rem",
-                  fontFamily: "var(--font-senobi-gothic)",
+                  fontSize: '1.1rem',
+                  fontFamily: 'var(--font-senobi-gothic)',
                   borderWidth: 2,
-                  "&:hover": { borderWidth: 2 },
+                  '&:hover': { borderWidth: 2 },
                   minWidth: 280,
                 }}
               >

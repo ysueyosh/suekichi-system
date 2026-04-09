@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React from "react";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CancelIcon from "@mui/icons-material/Cancel";
-import StorageIcon from "@mui/icons-material/Storage";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import Diversity3Icon from "@mui/icons-material/Diversity3";
-import HandymanIcon from "@mui/icons-material/Handyman";
-import ChatIcon from "@mui/icons-material/Chat";
-import ReceiptIcon from "@mui/icons-material/Receipt";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import PsychologyIcon from "@mui/icons-material/Psychology";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
-import WaterDropIcon from "@mui/icons-material/WaterDrop";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
-import AirIcon from "@mui/icons-material/Air";
+import React from 'react';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import StorageIcon from '@mui/icons-material/Storage';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import HandymanIcon from '@mui/icons-material/Handyman';
+import ChatIcon from '@mui/icons-material/Chat';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import AirIcon from '@mui/icons-material/Air';
 import {
   Container,
   Typography,
@@ -29,19 +29,18 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import WebIcon from "@mui/icons-material/Web";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import CodeIcon from "@mui/icons-material/Code";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SearchIcon from "@mui/icons-material/Search";
+} from '@mui/material';
+import WebIcon from '@mui/icons-material/Web';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import CodeIcon from '@mui/icons-material/Code';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SearchIcon from '@mui/icons-material/Search';
 // import StarIcon from "@mui/icons-material/Star"; // 未使用なのでコメントアウト
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import SpeedIcon from "@mui/icons-material/Speed";
-import Link from "next/link";
-import { ScrollReveal } from "../ui/ScrollReveal";
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import Link from 'next/link';
+import { ScrollReveal } from '../ui/ScrollReveal';
 // import Image from 'next/image'; // 画像がないので一旦コメントアウト
 
 // ポップなセクションヘッダー
@@ -56,20 +55,20 @@ const SectionHeader = ({
 }) => {
   const theme = useTheme();
   return (
-    <Box sx={{ mb: 8, textAlign: "center", position: "relative" }}>
+    <Box sx={{ mb: 8, textAlign: 'center', position: 'relative' }}>
       <Paper
         elevation={0}
         sx={{
-          display: "inline-flex",
-          alignItems: "center",
+          display: 'inline-flex',
+          alignItems: 'center',
           gap: 1.5,
           py: 1,
           px: 3,
           borderRadius: 50,
-          bgcolor: "rgba(0,0,0,0.03)",
-          fontFamily: "var(--font-senobi-gothic)",
-          fontSize: "0.9rem",
-          letterSpacing: "0.1em",
+          bgcolor: 'rgba(0,0,0,0.03)',
+          fontFamily: 'var(--font-senobi-gothic)',
+          fontSize: '0.9rem',
+          letterSpacing: '0.1em',
           color: theme.palette.text.secondary,
           mb: 2,
         }}
@@ -81,9 +80,9 @@ const SectionHeader = ({
         variant="h3"
         fontWeight={700}
         sx={{
-          fontFamily: "var(--font-senobi-gothic)",
-          letterSpacing: "0.05em",
-          fontSize: { xs: "2rem", md: "3rem" },
+          fontFamily: 'var(--font-senobi-gothic)',
+          letterSpacing: '0.05em',
+          fontSize: { xs: '2rem', md: '3rem' },
         }}
       >
         {title}
@@ -94,7 +93,7 @@ const SectionHeader = ({
 
 const GridContainer = ({ children }: { children: React.ReactNode }) => (
   <Box
-    sx={{ display: "flex", flexWrap: "wrap", mx: -2, justifyContent: "center" }}
+    sx={{ display: 'flex', flexWrap: 'wrap', mx: -2, justifyContent: 'center' }}
   >
     {children}
   </Box>
@@ -114,7 +113,7 @@ const GridItem = ({
       width: { xs: `${(xs / 12) * 100}%`, md: `${(md / 12) * 100}%` },
       px: 2,
       mb: 4,
-      boxSizing: "border-box",
+      boxSizing: 'border-box',
     }}
   >
     {children}
@@ -125,12 +124,110 @@ const GridItem = ({
 export const Features = () => {
   const theme = useTheme();
 
+  const renderRatingIcon = (value: string, isSuekichi = false) => {
+    const color = isSuekichi
+      ? theme.palette.primary.main
+      : theme.palette.grey[500];
+
+    if (value === '◎') {
+      return (
+        <Box
+          component="svg"
+          viewBox="0 0 24 24"
+          sx={{ width: 20, height: 20, color }}
+          aria-label="double-circle"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="9"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+          <circle
+            cx="12"
+            cy="12"
+            r="4.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+        </Box>
+      );
+    }
+
+    if (value === '○') {
+      return (
+        <Box
+          component="svg"
+          viewBox="0 0 24 24"
+          sx={{ width: 20, height: 20, color }}
+          aria-label="circle"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="8.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+        </Box>
+      );
+    }
+
+    if (value === '△') {
+      return (
+        <Box
+          component="svg"
+          viewBox="0 0 24 24"
+          sx={{ width: 20, height: 20, color }}
+          aria-label="triangle"
+        >
+          <polygon
+            points="12,5 19,18 5,18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+        </Box>
+      );
+    }
+
+    return (
+      <Box
+        component="svg"
+        viewBox="0 0 24 24"
+        sx={{ width: 20, height: 20, color }}
+        aria-label="cross"
+      >
+        <line
+          x1="6"
+          y1="6"
+          x2="18"
+          y2="18"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+        <line
+          x1="18"
+          y1="6"
+          x2="6"
+          y2="18"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+      </Box>
+    );
+  };
+
   return (
     <Box
       py={12}
       sx={{
         bgcolor:
-          theme.palette.mode === "dark" ? "background.default" : "#fafafa",
+          theme.palette.mode === 'dark' ? 'background.default' : '#fafafa',
       }}
     >
       <Container maxWidth="lg">
@@ -141,7 +238,7 @@ export const Features = () => {
               component="h1"
               gutterBottom
               sx={{
-                fontFamily: "var(--font-senobi-gothic)",
+                fontFamily: 'var(--font-senobi-gothic)',
                 fontWeight: 700,
               }}
             >
@@ -152,7 +249,7 @@ export const Features = () => {
               color="text.secondary"
               sx={{
                 maxWidth: 800,
-                mx: "auto",
+                mx: 'auto',
               }}
             >
               品質はそのままに、無駄なコストだけを削減しています。
@@ -163,70 +260,60 @@ export const Features = () => {
         <GridContainer>
           {[
             {
-              title: "コスト最適化",
-              assertion: "余計なコストは一切かけません。",
+              title: 'コスト最適化',
+              assertion: '余計なコストは一切かけません。',
               reason:
-                "代理店や営業を挟まないことで、中間マージンを削減。その分、開発そのものにコストを集中できます。",
-              assurance: "適正価格で、納得できる開発を提供します。",
+                '代理店や営業を挟まないことで、中間マージンを削減。その分、開発そのものにコストを集中できます。',
+              assurance: '適正価格で、納得できる開発を提供します。',
               icon: (
                 <CompareArrowsIcon
                   fontSize="large"
-                  sx={{ color: "primary.main" }}
+                  sx={{ color: 'primary.main' }}
                 />
               ),
             },
             {
-              title: "高品質な開発",
-              assertion: "企業レベルの品質を、そのまま提供します。",
+              title: 'AI × 仕様駆動の高品質開発',
+              assertion: '速く作って、品質も落としません。',
               reason:
-                "要件定義から設計・開発・運用まで一貫対応。認識ズレを防ぎ、高い品質を維持します。",
-              assurance: "品質で妥協することはありません。",
+                'AIで実装を高速化しつつ、仕様駆動で認識ズレを防止。受け入れ条件を明確にして、手戻りを抑えます。',
+              assurance: '速さと品質を同時に実現します。',
               icon: (
                 <PrecisionManufacturingIcon
                   fontSize="large"
-                  sx={{ color: "primary.main" }}
+                  sx={{ color: 'primary.main' }}
                 />
               ),
             },
             {
-              title: "技術選定の最適化",
-              assertion: "“必要な技術だけ”で構築します。",
+              title: '見せながら進めるアジャイル開発',
+              assertion: '作って見せて、早く直します。',
               reason:
-                "流行ではなく、目的に最適な技術を選定。過剰な構成を避けることでコストを最適化します。",
-              assurance: "無駄のない設計で、長く使えるシステムを作ります。",
+                '途中成果をこまめに共有し、方向性をその場で調整。完成してからズレるリスクを減らし、開発を止めません。',
+              assurance: '現場で使える形に素早く寄せます。',
               icon: (
                 <SettingsSuggestIcon
                   fontSize="large"
-                  sx={{ color: "primary.main" }}
+                  sx={{ color: 'primary.main' }}
                 />
               ),
             },
-            {
-              title: "AI駆動の高速開発",
-              assertion: "爆速で形にし、改善サイクルを回します。",
-              reason:
-                "AIツールを駆使し、コーディング時間を大幅圧縮。浮いた時間を「思考」と「改善」に充てます。",
-              assurance: "スピードも品質の一部です。",
-              icon: (
-                <SpeedIcon fontSize="large" sx={{ color: "primary.main" }} />
-              ),
-            },
           ].map((feature, index) => (
-            <GridItem xs={12} md={3} key={index}>
+            <GridItem xs={12} md={4} key={index}>
               <ScrollReveal animation="fade" delay={index * 100}>
                 <Paper
                   elevation={2}
                   sx={{
                     p: 3,
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "stretch",
-                    textAlign: "center",
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    textAlign: 'center',
                     borderRadius: 4,
-                    transition: "transform 0.3s ease-in-out, box-shadow 0.3s",
-                    "&:hover": {
-                      transform: "translateY(-8px)",
+                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
                       boxShadow: theme.shadows[8],
                     },
                   }}
@@ -235,11 +322,11 @@ export const Features = () => {
                     <Box
                       sx={{
                         p: 1.5,
-                        borderRadius: "50%",
+                        borderRadius: '50%',
                         bgcolor:
-                          theme.palette.mode === "dark"
-                            ? "rgba(255,255,255,0.05)"
-                            : "rgba(0,0,0,0.03)",
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255,255,255,0.05)'
+                            : 'rgba(0,0,0,0.03)',
                       }}
                     >
                       {feature.icon}
@@ -249,7 +336,7 @@ export const Features = () => {
                     variant="h6"
                     gutterBottom
                     fontWeight="bold"
-                    sx={{ fontFamily: "var(--font-senobi-gothic)", mb: 2 }}
+                    sx={{ fontFamily: 'var(--font-senobi-gothic)', mb: 2 }}
                   >
                     {feature.title}
                   </Typography>
@@ -259,10 +346,10 @@ export const Features = () => {
                     color="primary.main"
                     sx={{
                       mb: 2,
-                      minHeight: "3em",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      minHeight: '3em',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
                     {feature.assertion}
@@ -271,13 +358,13 @@ export const Features = () => {
                     variant="body2"
                     color="text.primary"
                     lineHeight={1.6}
-                    sx={{ mb: 2, textAlign: "left", flexGrow: 1 }}
+                    sx={{ mb: 2, textAlign: 'left', flexGrow: 1 }}
                   >
                     {feature.reason}
                   </Typography>
                   <Box
                     sx={{
-                      mt: "auto",
+                      mt: 'auto',
                       pt: 2,
                       borderTop: `1px solid ${theme.palette.divider}`,
                     }}
@@ -296,14 +383,77 @@ export const Features = () => {
           ))}
         </GridContainer>
 
+        <ScrollReveal animation="fade" delay={120}>
+          <Paper
+            elevation={0}
+            sx={{
+              mt: 8,
+              mb: 8,
+              p: { xs: 4, md: 6 },
+              borderRadius: 4,
+              bgcolor:
+                theme.palette.mode === 'dark'
+                  ? 'rgba(25,118,210,0.12)'
+                  : '#eaf4ff',
+              border: `1px solid ${theme.palette.primary.light}`,
+            }}
+          >
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{
+                fontFamily: 'var(--font-senobi-gothic)',
+                fontWeight: 700,
+                textAlign: 'center',
+                mb: 2,
+              }}
+            >
+              利用者に合わせた料金プランを用意しています
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                textAlign: 'center',
+                lineHeight: 1.9,
+                maxWidth: 860,
+                mx: 'auto',
+              }}
+            >
+              スエキチシステムでは、事業フェーズや運用スタイルに合わせて選べる複数の契約プランをご用意しています。
+              <br />
+              「まずは小さく始めたい」「毎月の開発工数を確保したい」「運用までまとめて任せたい」など、
+              <br />
+              利用者ごとの状況に合わせて、無理のない形でスタートできます。
+            </Typography>
+            <Box textAlign="center" mt={3}>
+              <Button
+                variant="contained"
+                component={Link}
+                href="/pricing"
+                endIcon={<ArrowForwardIcon />}
+                sx={{
+                  borderRadius: 50,
+                  px: 4,
+                  py: 1.2,
+                  fontFamily: 'var(--font-senobi-gothic)',
+                  fontWeight: 700,
+                }}
+              >
+                料金プランを見る
+              </Button>
+            </Box>
+          </Paper>
+        </ScrollReveal>
+
         <ScrollReveal animation="fade" delay={200}>
-          <Box sx={{ maxWidth: 900, mx: "auto", mb: 8, mt: 8 }}>
+          <Box sx={{ maxWidth: 900, mx: 'auto', mb: 8, mt: 8 }}>
             <Typography
               variant="h5"
               align="center"
               gutterBottom
               fontWeight="bold"
-              sx={{ mb: 4, fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ mb: 4, fontFamily: 'var(--font-senobi-gothic)' }}
             >
               他との違い
             </Typography>
@@ -311,80 +461,86 @@ export const Features = () => {
               component={Paper}
               elevation={0}
               variant="outlined"
-              sx={{ overflow: "hidden", borderRadius: 4 }}
+              sx={{ overflow: 'hidden', borderRadius: 4 }}
             >
               <Table sx={{ minWidth: 650 }}>
                 <TableHead
                   sx={{
                     bgcolor:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.05)"
-                        : "rgba(0, 0, 0, 0.04)",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.05)'
+                        : 'rgba(0, 0, 0, 0.04)',
                   }}
                 >
                   <TableRow>
                     <TableCell
                       align="center"
                       width="25%"
-                      sx={{ fontWeight: "bold" }}
+                      sx={{ fontWeight: 'bold' }}
                     >
                       項目
                     </TableCell>
                     <TableCell
                       align="center"
                       width="25%"
-                      sx={{ fontWeight: "bold", color: "text.secondary" }}
+                      sx={{
+                        fontWeight: 'bold',
+                        color: 'primary.main',
+                        bgcolor:
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(25, 118, 210, 0.08)'
+                            : 'rgba(25, 118, 210, 0.04)',
+                      }}
+                    >
+                      スエキチシステム
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      width="25%"
+                      sx={{ color: 'text.secondary' }}
                     >
                       開発会社
                     </TableCell>
                     <TableCell
                       align="center"
                       width="25%"
-                      sx={{ fontWeight: "bold", color: "text.secondary" }}
+                      sx={{ color: 'text.secondary' }}
                     >
                       フリーランス
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      width="25%"
-                      sx={{
-                        fontWeight: "bold",
-                        color: "primary.main",
-                        bgcolor:
-                          theme.palette.mode === "dark"
-                            ? "rgba(25, 118, 210, 0.08)"
-                            : "rgba(25, 118, 210, 0.04)",
-                      }}
-                    >
-                      スエキチシステム
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {[
                     {
-                      label: "価格",
-                      company: "高い",
-                      freelance: "安い",
-                      suekichi: "適正",
+                      label: '価格',
+                      company: '×',
+                      freelance: '△',
+                      suekichi: '◎',
                     },
                     {
-                      label: "品質",
-                      company: "高い",
-                      freelance: "バラつきあり",
-                      suekichi: "安定して高い",
+                      label: '品質',
+                      company: '◎',
+                      freelance: '○',
+                      suekichi: '○',
                     },
                     {
-                      label: "柔軟性",
-                      company: "低い",
-                      freelance: "高い",
-                      suekichi: "高い",
+                      label: '柔軟性',
+                      company: '△',
+                      freelance: '○',
+                      suekichi: '◎',
                     },
                     {
-                      label: "スピード",
-                      company: "普通",
-                      freelance: "速い",
-                      suekichi: "速い",
+                      label: 'スピード',
+                      company: '△',
+                      freelance: '○',
+                      suekichi: '◎',
+                    },
+                    {
+                      label: 'プラン柔軟性',
+                      company: '×',
+                      freelance: '△',
+                      suekichi: '◎',
                     },
                   ].map((row) => (
                     <TableRow key={row.label} hover>
@@ -392,24 +548,33 @@ export const Features = () => {
                         align="center"
                         component="th"
                         scope="row"
-                        sx={{ fontWeight: "bold" }}
+                        sx={{ fontWeight: 'bold' }}
                       >
                         {row.label}
                       </TableCell>
-                      <TableCell align="center">{row.company}</TableCell>
-                      <TableCell align="center">{row.freelance}</TableCell>
                       <TableCell
                         align="center"
                         sx={{
-                          fontWeight: "bold",
-                          color: "primary.main",
+                          fontWeight: 'bold',
                           bgcolor:
-                            theme.palette.mode === "dark"
-                              ? "rgba(25, 118, 210, 0.08)"
-                              : "rgba(25, 118, 210, 0.04)",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(25, 118, 210, 0.08)'
+                              : 'rgba(25, 118, 210, 0.04)',
                         }}
                       >
-                        {row.suekichi}
+                        <Box display="flex" justifyContent="center">
+                          {renderRatingIcon(row.suekichi, true)}
+                        </Box>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Box display="flex" justifyContent="center">
+                          {renderRatingIcon(row.company)}
+                        </Box>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Box display="flex" justifyContent="center">
+                          {renderRatingIcon(row.freelance)}
+                        </Box>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -421,7 +586,7 @@ export const Features = () => {
               sx={{
                 mt: 3,
                 fontWeight: 500,
-                color: "text.secondary",
+                color: 'text.secondary',
               }}
             >
               価格・品質・柔軟性をバランスよく実現しています。
@@ -436,8 +601,8 @@ export const Features = () => {
               fontWeight="bold"
               sx={{
                 lineHeight: 2,
-                fontFamily: "var(--font-senobi-gothic)",
-                fontSize: { xs: "1.2rem", md: "1.5rem" },
+                fontFamily: 'var(--font-senobi-gothic)',
+                fontSize: { xs: '1.2rem', md: '1.5rem' },
               }}
             >
               “安さ”ではなく、
@@ -460,8 +625,8 @@ export const Services = () => {
       py={12}
       sx={{
         bgcolor:
-          theme.palette.mode === "dark" ? "background.default" : "#f9f9f9",
-        overflow: "hidden",
+          theme.palette.mode === 'dark' ? 'background.default' : '#f9f9f9',
+        overflow: 'hidden',
       }}
     >
       <Container maxWidth="lg">
@@ -473,7 +638,7 @@ export const Services = () => {
               component="h1"
               gutterBottom
               sx={{
-                fontFamily: "var(--font-senobi-gothic)",
+                fontFamily: 'var(--font-senobi-gothic)',
                 fontWeight: 700,
               }}
             >
@@ -489,57 +654,57 @@ export const Services = () => {
         <GridContainer>
           {[
             {
-              title: "Webシステム開発",
-              assertion: "業務を効率化するシステムを開発します。",
-              desc: "管理画面や予約システムなど、実際の業務に合わせたWebシステムを構築します。",
-              targets: ["手作業を減らしたい", "独自の仕組みを作りたい"],
-              icon: <WebIcon sx={{ fontSize: 50, color: "primary.main" }} />,
+              title: 'Webシステム開発',
+              assertion: '業務を効率化するシステムを開発します。',
+              desc: '管理画面や予約システムなど、実際の業務に合わせたWebシステムを構築します。',
+              targets: ['手作業を減らしたい', '独自の仕組みを作りたい'],
+              icon: <WebIcon sx={{ fontSize: 50, color: 'primary.main' }} />,
             },
             {
-              title: "LP制作",
-              assertion: "成果につながるLPを制作します。",
-              desc: "デザインだけでなく、ユーザー導線を意識した構成で制作します。",
-              targets: ["商品・サービスを売りたい", "問い合わせを増やしたい"],
+              title: 'LP制作',
+              assertion: '成果につながるLPを制作します。',
+              desc: 'デザインだけでなく、ユーザー導線を意識した構成で制作します。',
+              targets: ['商品・サービスを売りたい', '問い合わせを増やしたい'],
               icon: (
                 <DesignServicesIcon
-                  sx={{ fontSize: 50, color: "secondary.main" }}
+                  sx={{ fontSize: 50, color: 'secondary.main' }}
                 />
               ),
             },
             {
-              title: "業務効率化ツール",
-              assertion: "ルーチンワークを自動化します。",
-              desc: "Excelや手入力作業を自動化するスクリプト、bot開発など、小さなツールから対応します。",
-              targets: ["単純作業をなくしたい", "ミスを減らしたい"],
+              title: '業務効率化ツール',
+              assertion: 'ルーチンワークを自動化します。',
+              desc: 'Excelや手入力作業を自動化するスクリプト、bot開発など、小さなツールから対応します。',
+              targets: ['単純作業をなくしたい', 'ミスを減らしたい'],
               icon: (
-                <HandymanIcon sx={{ fontSize: 50, color: "success.main" }} />
+                <HandymanIcon sx={{ fontSize: 50, color: 'success.main' }} />
               ),
             },
             {
-              title: "API開発",
-              assertion: "データ連携の基盤を作ります。",
-              desc: "外部サービスとの連携や、アプリ向けのバックエンドAPIを設計・開発します。",
-              targets: ["アプリを作りたい", "データ連携したい"],
-              icon: <StorageIcon sx={{ fontSize: 50, color: "info.main" }} />,
+              title: 'API開発',
+              assertion: 'データ連携の基盤を作ります。',
+              desc: '外部サービスとの連携や、アプリ向けのバックエンドAPIを設計・開発します。',
+              targets: ['アプリを作りたい', 'データ連携したい'],
+              icon: <StorageIcon sx={{ fontSize: 50, color: 'info.main' }} />,
             },
             {
-              title: "AIソリューション",
-              assertion: "AIの力でビジネスを加速させます。",
-              desc: "ChatGPTをはじめとした生成AIの導入支援や、AIを活用した業務改善ツールを提案・開発します。",
-              targets: ["AIを導入したい", "業務を自動化したい"],
+              title: 'AIソリューション',
+              assertion: 'AIの力でビジネスを加速させます。',
+              desc: 'ChatGPTをはじめとした生成AIの導入支援や、AIを活用した業務改善ツールを提案・開発します。',
+              targets: ['AIを導入したい', '業務を自動化したい'],
               icon: (
                 <PsychologyIcon
-                  sx={{ fontSize: 50, color: "secondary.dark" }}
+                  sx={{ fontSize: 50, color: 'secondary.dark' }}
                 />
               ),
             },
             {
-              title: "モバイルアプリ開発",
-              assertion: "スマホで使える便利なツールを作ります。",
-              desc: "社内利用の業務アプリから、一般公開向けのアプリまで。React Native等を用いて効率的に開発します。",
-              targets: ["スマホで業務を完結させたい", "アプリを作りたい"],
+              title: 'モバイルアプリ開発',
+              assertion: 'スマホで使える便利なツールを作ります。',
+              desc: '社内利用の業務アプリから、一般公開向けのアプリまで。React Native等を用いて効率的に開発します。',
+              targets: ['スマホで業務を完結させたい', 'アプリを作りたい'],
               icon: (
-                <SmartphoneIcon sx={{ fontSize: 50, color: "primary.dark" }} />
+                <SmartphoneIcon sx={{ fontSize: 50, color: 'primary.dark' }} />
               ),
             },
           ].map((service, index) => (
@@ -549,14 +714,14 @@ export const Services = () => {
                   elevation={0}
                   sx={{
                     p: 4,
-                    height: "100%",
+                    height: '100%',
                     borderRadius: 4,
                     border: `1px solid ${theme.palette.divider}`,
-                    transition: "all 0.3s",
-                    "&:hover": {
-                      transform: "translateY(-5px)",
+                    transition: 'all 0.3s',
+                    '&:hover': {
+                      transform: 'translateY(-5px)',
                       boxShadow: theme.shadows[4],
-                      borderColor: "primary.main",
+                      borderColor: 'primary.main',
                     },
                   }}
                 >
@@ -565,7 +730,7 @@ export const Services = () => {
                     <Typography
                       variant="h5"
                       fontWeight="bold"
-                      sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+                      sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
                     >
                       {service.title}
                     </Typography>
@@ -575,7 +740,7 @@ export const Services = () => {
                     color="primary"
                     fontWeight="bold"
                     gutterBottom
-                    sx={{ fontSize: "1.1rem" }}
+                    sx={{ fontSize: '1.1rem' }}
                   >
                     {service.assertion}
                   </Typography>
@@ -583,7 +748,7 @@ export const Services = () => {
                     variant="body1"
                     color="text.secondary"
                     paragraph
-                    sx={{ minHeight: "3em" }}
+                    sx={{ minHeight: '3em' }}
                   >
                     {service.desc}
                   </Typography>
@@ -621,6 +786,81 @@ export const Services = () => {
           ))}
         </GridContainer>
 
+        <ScrollReveal animation="fade" delay={120}>
+          <Box
+            mt={2}
+            mb={6}
+            sx={{
+              p: { xs: 3, md: 4 },
+              borderRadius: 4,
+              bgcolor:
+                theme.palette.mode === 'dark'
+                  ? 'rgba(255,255,255,0.04)'
+                  : 'rgba(0, 85, 170, 0.05)',
+              border: `1px dashed ${theme.palette.divider}`,
+            }}
+          >
+            <Typography
+              variant="overline"
+              sx={{
+                display: 'block',
+                textAlign: 'center',
+                letterSpacing: '0.18em',
+                color: 'text.secondary',
+              }}
+            >
+              cooming soon...
+            </Typography>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+              mt={1}
+            >
+              {[
+                {
+                  name: 'スエキチPAYGATE',
+                  desc: '決済管理プラットフォーム',
+                },
+                {
+                  name: 'スエキチDOCS',
+                  desc: 'ファイル管理・共有システム',
+                },
+                {
+                  name: 'スエキチMANAGE',
+                  desc: '進捗管理システム',
+                },
+              ].map((item) => (
+                <Box
+                  key={item.name}
+                  sx={{
+                    px: 2.5,
+                    py: 1,
+                    borderRadius: 50,
+                    fontWeight: 700,
+                    fontFamily: 'var(--font-senobi-gothic)',
+                    border: `1px solid ${theme.palette.primary.light}`,
+                    color: 'primary.main',
+                    bgcolor:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(25,118,210,0.14)'
+                        : '#ffffff',
+                  }}
+                >
+                  {item.name}
+                  <Typography
+                    variant="caption"
+                    sx={{ display: 'block', color: 'text.secondary' }}
+                  >
+                    {item.desc}
+                  </Typography>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+        </ScrollReveal>
+
         <Box textAlign="center" mt={6}>
           <ScrollReveal animation="fade" delay={200}>
             <Typography variant="body1" color="text.secondary">
@@ -639,66 +879,66 @@ export const Services = () => {
               align="center"
               gutterBottom
               fontWeight="bold"
-              sx={{ fontFamily: "var(--font-senobi-gothic)", mb: 6 }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)', mb: 6 }}
             >
               ご相談から納品までの流れ
             </Typography>
           </ScrollReveal>
-          <Box sx={{ position: "relative", maxWidth: 800, mx: "auto" }}>
+          <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto' }}>
             {/* 縦線（スマホ用） */}
             <Box
               sx={{
-                position: "absolute",
+                position: 'absolute',
                 left: 20,
                 top: 0,
                 bottom: 0,
                 width: 2,
-                bgcolor: "divider",
-                display: { xs: "block", md: "none" },
+                bgcolor: 'divider',
+                display: { xs: 'block', md: 'none' },
               }}
             />
 
             {[
               {
                 step: 1,
-                title: "お問い合わせ",
-                desc: "まずはお気軽にご連絡ください",
+                title: 'お問い合わせ',
+                desc: 'まずはお気軽にご連絡ください',
                 icon: <ChatIcon color="action" />,
               },
               {
                 step: 2,
-                title: "ヒアリング",
-                desc: "現状の課題やご要望をお伺いします",
+                title: 'ヒアリング',
+                desc: '現状の課題やご要望をお伺いします',
                 icon: <LightbulbIcon color="warning" />,
               },
               {
                 step: 3,
-                title: "提案・見積もり",
-                desc: "最適なプランと概算費用をご提示",
+                title: '提案・見積もり',
+                desc: '最適なプランと概算費用をご提示',
                 icon: <ReceiptIcon color="info" />,
               },
               {
                 step: 4,
-                title: "開発",
-                desc: "進捗を共有しながら開発を進めます",
+                title: '開発',
+                desc: '進捗を共有しながら開発を進めます',
                 icon: <CodeIcon color="primary" />,
               },
               {
                 step: 5,
-                title: "納品・改善",
-                desc: "納品後も改善のご相談を承ります",
+                title: '納品・改善',
+                desc: '納品後も改善のご相談を承ります',
                 icon: <VerifiedUserIcon color="success" />,
               },
             ].map((item, index) => (
               <ScrollReveal key={index} animation="fade" delay={index * 100}>
                 <Paper
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
+                    display: 'flex',
+                    alignItems: 'center',
                     p: 3,
                     mb: 3,
                     borderRadius: 4,
-                    position: "relative",
+                    position: 'relative',
                     zIndex: 1,
                     ml: { xs: 5, md: 0 },
                   }}
@@ -708,22 +948,22 @@ export const Services = () => {
                     sx={{
                       width: 40,
                       height: 40,
-                      borderRadius: "50%",
-                      bgcolor: "primary.main",
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontWeight: "bold",
+                      borderRadius: '50%',
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 'bold',
                       mr: 3,
                       flexShrink: 0,
-                      position: { xs: "absolute", md: "static" },
-                      left: { xs: -43, md: "auto" },
+                      position: { xs: 'absolute', md: 'static' },
+                      left: { xs: -43, md: 'auto' },
                     }}
                   >
                     {item.step}
                   </Box>
-                  <Box sx={{ mr: 3, display: { xs: "none", sm: "block" } }}>
+                  <Box sx={{ mr: 3, display: { xs: 'none', sm: 'block' } }}>
                     {item.icon}
                   </Box>
                   <Box>
@@ -749,12 +989,12 @@ export const Services = () => {
                   elevation={0}
                   sx={{
                     p: 4,
-                    height: "100%",
+                    height: '100%',
                     borderRadius: 4,
                     bgcolor:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255,255,255,0.05)"
-                        : "#e3f2fd",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255,255,255,0.05)'
+                        : '#e3f2fd',
                   }}
                 >
                   <Typography
@@ -762,9 +1002,9 @@ export const Services = () => {
                     gutterBottom
                     fontWeight="bold"
                     sx={{
-                      fontFamily: "var(--font-senobi-gothic)",
-                      display: "flex",
-                      alignItems: "center",
+                      fontFamily: 'var(--font-senobi-gothic)',
+                      display: 'flex',
+                      alignItems: 'center',
                       gap: 1,
                     }}
                   >
@@ -772,10 +1012,10 @@ export const Services = () => {
                   </Typography>
                   <Stack spacing={2} mt={3}>
                     {[
-                      "初めて開発を依頼する方",
-                      "コストを抑えたい方",
-                      "柔軟に相談したい方",
-                      "小さく始めたい方",
+                      '初めて開発を依頼する方',
+                      'コストを抑えたい方',
+                      '柔軟に相談したい方',
+                      '小さく始めたい方',
                     ].map((text, i) => (
                       <Box key={i} display="flex" alignItems="center" gap={1}>
                         <CheckCircleIcon color="primary" fontSize="small" />
@@ -795,13 +1035,13 @@ export const Services = () => {
               <ScrollReveal animation="fade" delay={200}>
                 <Paper
                   elevation={2}
-                  sx={{ p: 4, height: "100%", borderRadius: 4 }}
+                  sx={{ p: 4, height: '100%', borderRadius: 4 }}
                 >
                   <Typography
                     variant="h5"
                     gutterBottom
                     fontWeight="bold"
-                    sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+                    sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
                   >
                     対応できること / できないこと
                   </Typography>
@@ -869,7 +1109,7 @@ export const Services = () => {
                 variant="h5"
                 gutterBottom
                 fontWeight="bold"
-                sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+                sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
               >
                 開発に対する考え方
               </Typography>
@@ -888,9 +1128,9 @@ export const Services = () => {
             py={8}
             sx={{
               bgcolor:
-                theme.palette.mode === "dark"
-                  ? "rgba(255,255,255,0.05)"
-                  : "#fff",
+                theme.palette.mode === 'dark'
+                  ? 'rgba(255,255,255,0.05)'
+                  : '#fff',
               borderRadius: 8,
             }}
           >
@@ -898,7 +1138,7 @@ export const Services = () => {
               variant="h4"
               fontWeight="bold"
               gutterBottom
-              sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
             >
               まずは気軽にご相談ください
             </Typography>
@@ -914,9 +1154,9 @@ export const Services = () => {
                   px: 6,
                   py: 1.5,
                   borderRadius: 50,
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                  boxShadow: "0 8px 20px rgba(25, 118, 210, 0.3)",
+                  fontSize: '1.1rem',
+                  fontWeight: 'bold',
+                  boxShadow: '0 8px 20px rgba(25, 118, 210, 0.3)',
                 }}
               >
                 無料相談する
@@ -942,22 +1182,22 @@ export const Works = () => {
         />
 
         {/* 検索結果風のリスト表示 */}
-        <Stack spacing={4} sx={{ maxWidth: 800, mx: "auto" }}>
+        <Stack spacing={4} sx={{ maxWidth: 800, mx: 'auto' }}>
           {[
             {
-              title: "老舗旅館「山河」予約システム",
-              tags: ["Next.js", "Booking"],
-              desc: "複雑な宿泊プランを直感的に予約できるUIを実現。",
+              title: '老舗旅館「山河」予約システム',
+              tags: ['Next.js', 'Booking'],
+              desc: '複雑な宿泊プランを直感的に予約できるUIを実現。',
             },
             {
-              title: "伝統工芸ECサイト「匠」",
-              tags: ["Shopify", "Design"],
-              desc: "職人の想いを伝えるストーリーテリング型EC。",
+              title: '伝統工芸ECサイト「匠」',
+              tags: ['Shopify', 'Design'],
+              desc: '職人の想いを伝えるストーリーテリング型EC。',
             },
             {
-              title: "株式会社○○ コーポレートサイト",
-              tags: ["WordPress", "Animation"],
-              desc: "動きのある演出で企業の先進性をアピール。",
+              title: '株式会社○○ コーポレートサイト',
+              tags: ['WordPress', 'Animation'],
+              desc: '動きのある演出で企業の先進性をアピール。',
             },
           ].map((work, i) => (
             <Paper
@@ -967,37 +1207,37 @@ export const Works = () => {
                 p: 3,
                 borderRadius: 6,
                 border: `1px solid ${theme.palette.divider}`,
-                display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
                 gap: 3,
-                alignItems: "center",
-                transition: "all 0.2s",
-                "&:hover": {
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-                  transform: "scale(1.01)",
+                alignItems: 'center',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.08)',
+                  transform: 'scale(1.01)',
                 },
               }}
             >
               <Box
                 sx={{
-                  width: { xs: "100%", sm: 160 },
+                  width: { xs: '100%', sm: 160 },
                   height: 100,
-                  bgcolor: "#f5f5f5",
+                  bgcolor: '#f5f5f5',
                   borderRadius: 4,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <Typography variant="caption" color="text.secondary">
                   Image
                 </Typography>
               </Box>
-              <Box sx={{ flex: 1, width: "100%" }}>
+              <Box sx={{ flex: 1, width: '100%' }}>
                 <Typography
                   variant="h6"
                   sx={{
-                    fontFamily: "var(--font-senobi-gothic)",
+                    fontFamily: 'var(--font-senobi-gothic)',
                     fontWeight: 700,
                     mb: 1,
                   }}
@@ -1006,7 +1246,7 @@ export const Works = () => {
                     href="#"
                     style={{
                       color: theme.palette.primary.main,
-                      textDecoration: "none",
+                      textDecoration: 'none',
                     }}
                   >
                     {work.title}
@@ -1024,9 +1264,9 @@ export const Works = () => {
                     <Box
                       key={tag}
                       sx={{
-                        fontSize: "0.7rem",
-                        bgcolor: "#eef",
-                        color: "#55a",
+                        fontSize: '0.7rem',
+                        bgcolor: '#eef',
+                        color: '#55a',
                         px: 1.5,
                         py: 0.5,
                         borderRadius: 10,
@@ -1050,10 +1290,10 @@ export const Works = () => {
               borderRadius: 50,
               px: 5,
               py: 1.5,
-              fontFamily: "var(--font-senobi-gothic)",
-              boxShadow: "none",
-              "&:hover": {
-                boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+              fontFamily: 'var(--font-senobi-gothic)',
+              boxShadow: 'none',
+              '&:hover': {
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
               },
             }}
           >
@@ -1071,60 +1311,60 @@ export const Pricing = () => {
 
   const plans = [
     {
-      title: "Water Plan",
-      concept: "柔軟",
+      title: 'Water Plan',
+      concept: '柔軟',
       description:
-        "必要な時に必要な分だけ。\n上限設定で予算オーバーの心配もありません。",
-      priceDisplay: "従量課金",
+        '必要な時に必要な分だけ。\n上限設定で予算オーバーの心配もありません。',
+      priceDisplay: '従量課金',
       features: [
-        "使った分だけの支払い",
-        "上限予算の設定可能",
-        "スポットでの依頼に最適",
-        "無駄のないコスト管理",
+        '使った分だけの支払い',
+        '上限予算の設定可能',
+        'スポットでの依頼に最適',
+        '無駄のないコスト管理',
       ],
       icon: <WaterDropIcon sx={{ fontSize: 40 }} />,
       color: theme.palette.info.main,
       bgColor:
-        theme.palette.mode === "dark" ? "rgba(2, 136, 209, 0.1)" : "#e1f5fe",
+        theme.palette.mode === 'dark' ? 'rgba(2, 136, 209, 0.1)' : '#e1f5fe',
     },
     {
-      title: "Ice Plan",
-      concept: "安定",
+      title: 'Ice Plan',
+      concept: '安定',
       description:
-        "毎月決まった工数を確保。\n計画的な開発や保守運用におすすめです。",
-      priceDisplay: "月額固定",
+        '毎月決まった工数を確保。\n計画的な開発や保守運用におすすめです。',
+      priceDisplay: '月額固定',
       features: [
-        "毎月決まった工数の確保",
-        "計画的な機能追加",
-        "優先的なリソース配分",
-        "安定した開発スケジュール",
+        '毎月決まった工数の確保',
+        '計画的な機能追加',
+        '優先的なリソース配分',
+        '安定した開発スケジュール',
       ],
       icon: <AcUnitIcon sx={{ fontSize: 40 }} />,
       color: theme.palette.primary.main,
       bgColor:
-        theme.palette.mode === "dark" ? "rgba(25, 118, 210, 0.1)" : "#e3f2fd",
+        theme.palette.mode === 'dark' ? 'rgba(25, 118, 210, 0.1)' : '#e3f2fd',
     },
     {
-      title: "Air Plan",
-      concept: "伴走",
+      title: 'Air Plan',
+      concept: '伴走',
       description:
-        "初期費用を抑えてスタート。\n運用まで含めたトータルサポートプラン。",
-      priceDisplay: "制作割安 + サブスク",
+        '初期費用を抑えてスタート。\n運用まで含めたトータルサポートプラン。',
+      priceDisplay: '制作割安 + サブスク',
       features: [
-        "初期制作費を大幅に抑制",
-        "継続的な運用改善サポート",
-        "システムの見守り・保守",
-        "長期的なパートナーシップ",
+        '初期制作費を大幅に抑制',
+        '継続的な運用改善サポート',
+        'システムの見守り・保守',
+        '長期的なパートナーシップ',
       ],
       icon: <AirIcon sx={{ fontSize: 40 }} />,
       color: theme.palette.success.main,
       bgColor:
-        theme.palette.mode === "dark" ? "rgba(46, 125, 50, 0.1)" : "#e8f5e9",
+        theme.palette.mode === 'dark' ? 'rgba(46, 125, 50, 0.1)' : '#e8f5e9',
     },
   ];
 
   return (
-    <Box py={12} sx={{ bgcolor: "background.default" }}>
+    <Box py={12} sx={{ bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
         <ScrollReveal animation="fade">
           <Box mb={8} textAlign="center">
@@ -1133,7 +1373,7 @@ export const Pricing = () => {
               component="h1"
               gutterBottom
               sx={{
-                fontFamily: "var(--font-senobi-gothic)",
+                fontFamily: 'var(--font-senobi-gothic)',
                 fontWeight: 700,
               }}
             >
@@ -1153,25 +1393,25 @@ export const Pricing = () => {
                   elevation={0}
                   sx={{
                     p: 4,
-                    height: "100%",
+                    height: '100%',
                     borderRadius: 8,
                     border: `1px solid ${theme.palette.divider}`,
-                    position: "relative",
-                    overflow: "hidden",
+                    position: 'relative',
+                    overflow: 'hidden',
                     transition:
-                      "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "translateY(-8px)",
+                      'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
                       boxShadow: theme.shadows[4],
                       borderColor: plan.color,
                     },
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                   }}
                 >
                   <Box
                     sx={{
-                      position: "absolute",
+                      position: 'absolute',
                       top: 0,
                       right: 0,
                       bgcolor: plan.bgColor,
@@ -1179,9 +1419,9 @@ export const Pricing = () => {
                       px: 3,
                       py: 1,
                       borderBottomLeftRadius: 20,
-                      fontWeight: "bold",
-                      fontSize: "0.85rem",
-                      letterSpacing: "0.1em",
+                      fontWeight: 'bold',
+                      fontSize: '0.85rem',
+                      letterSpacing: '0.1em',
                     }}
                   >
                     {plan.concept}
@@ -1191,12 +1431,12 @@ export const Pricing = () => {
                     sx={{
                       width: 80,
                       height: 80,
-                      borderRadius: "50%",
+                      borderRadius: '50%',
                       bgcolor: plan.bgColor,
                       color: plan.color,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       mb: 3,
                     }}
                   >
@@ -1208,7 +1448,7 @@ export const Pricing = () => {
                     component="h3"
                     gutterBottom
                     sx={{
-                      fontFamily: "var(--font-senobi-gothic)",
+                      fontFamily: 'var(--font-senobi-gothic)',
                       fontWeight: 700,
                       color: plan.color,
                     }}
@@ -1221,7 +1461,7 @@ export const Pricing = () => {
                     sx={{
                       fontWeight: 700,
                       mb: 2,
-                      fontSize: "1.1rem",
+                      fontSize: '1.1rem',
                     }}
                   >
                     {plan.priceDisplay}
@@ -1230,7 +1470,7 @@ export const Pricing = () => {
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ mb: 3, minHeight: "3em", whiteSpace: "pre-line" }}
+                    sx={{ mb: 3, minHeight: '3em', whiteSpace: 'pre-line' }}
                   >
                     {plan.description}
                   </Typography>
@@ -1240,7 +1480,7 @@ export const Pricing = () => {
                       <Box
                         component="li"
                         key={feature}
-                        sx={{ mb: 1, typography: "body2" }}
+                        sx={{ mb: 1, typography: 'body2' }}
                       >
                         {feature}
                       </Box>
@@ -1269,8 +1509,8 @@ export const Pricing = () => {
               borderRadius: 50,
               px: 6,
               py: 1.5,
-              fontWeight: "bold",
-              fontFamily: "var(--font-senobi-gothic)",
+              fontWeight: 'bold',
+              fontFamily: 'var(--font-senobi-gothic)',
               boxShadow: theme.shadows[4],
             }}
           >

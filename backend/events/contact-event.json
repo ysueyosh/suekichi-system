@@ -1,0 +1,8 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"type\":\"company\",\"companyName\":\"株式会社サンプル\",\"name\":\"山田 太郎\",\"email\":\"taro@example.com\",\"phoneNumber\":\"03-1234-5678\",\"inquiryType\":\"dev_web_system\",\"content\":\"お問い合わせ本文です。\"}",
+  "isBase64Encoded": false
+}

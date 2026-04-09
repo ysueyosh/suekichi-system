@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Contact API on API Gateway + Lambda
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Description: Deployment environment name (dev/prod)
+    AllowedValues:
+      - dev
+      - prod
+  SourceEmail:
+    Type: String
+    Description: SES verified sender email address
+  DestinationEmail:
+    Type: String
+    Description: Email address to receive contact notifications
+  AllowedOrigin:
+    Type: String
+    Default: '*'
+    Description: CORS allowed origin
+  DryRun:
+    Type: String
+    Default: 'false'
+    AllowedValues:
+      - 'true'
+      - 'false'
+
+Resources:
+  ContactApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub 'suekichi-contact-api-${EnvironmentName}'
+      StageName: !Ref EnvironmentName
+      Cors:
+        AllowOrigin: "'*'"
+        AllowMethods: "'OPTIONS,POST'"
+        AllowHeaders: "'Content-Type'"
+
+  ContactDependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: !Sub 'suekichi-contact-layer-${EnvironmentName}'
+      ContentUri: layer/
+      CompatibleRuntimes:
+        - python3.12
+      RetentionPolicy: Delete
+
+  ContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'suekichi-contact-lambda-${EnvironmentName}'
+      Runtime: python3.12
+      Handler: contact_handler.handler
+      CodeUri: lambda/
+      Timeout: 15
+      MemorySize: 256
+      Layers:
+        - !Ref ContactDependenciesLayer
+      Environment:
+        Variables:
+          SOURCE_EMAIL: !Ref SourceEmail
+          DESTINATION_EMAIL: !Ref DestinationEmail
+          ALLOWED_ORIGIN: !Ref AllowedOrigin
+          DRY_RUN: !Ref DryRun
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+              Resource: '*'
+      Events:
+        ContactPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ContactApi
+            Path: /contact
+            Method: post
+
+Outputs:
+  ContactApiEndpoint:
+    Description: Contact API endpoint
+    Value: !Sub 'https://${ContactApi}.execute-api.${AWS::Region}.amazonaws.com/${EnvironmentName}/contact'
+  ContactFunctionArn:
+    Description: Contact Lambda ARN
+    Value: !GetAtt ContactFunction.Arn

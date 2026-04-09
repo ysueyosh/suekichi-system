@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -17,47 +17,50 @@ import {
   CircularProgress,
   useTheme,
   Alert,
-} from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+} from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-type FormStep = "input" | "confirm" | "complete";
+type FormStep = 'input' | 'confirm' | 'complete';
 
 type InquiryType =
-  | "dev_web_system"
-  | "dev_website"
-  | "dev_app"
-  | "ai_solution"
-  | "consultation"
-  | "other";
+  | 'dev_web_system'
+  | 'dev_website'
+  | 'dev_app'
+  | 'ai_solution'
+  | 'consultation'
+  | 'other';
 
 interface FormData {
-  type: "company" | "individual";
+  type: 'company' | 'individual';
   companyName: string;
   name: string;
   email: string;
   phoneNumber: string;
-  inquiryType: InquiryType | "";
+  inquiryType: InquiryType | '';
   content: string;
 }
 
 export const ContactForm = () => {
   const theme = useTheme();
-  const [step, setStep] = useState<FormStep>("input");
+  const [step, setStep] = useState<FormStep>('input');
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [formData, setFormData] = useState<FormData>({
-    type: "company",
-    companyName: "",
-    name: "",
-    email: "",
-    phoneNumber: "",
-    inquiryType: "",
-    content: "",
+    type: 'company',
+    companyName: '',
+    name: '',
+    email: '',
+    phoneNumber: '',
+    inquiryType: '',
+    content: '',
   });
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {},
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -69,35 +72,35 @@ export const ContactForm = () => {
     }));
     // エラークリア
     if (errors[name as keyof FormData]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleChangeRadio = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (formData.type === "company" && !formData.companyName) {
-      newErrors.companyName = "会社名を入力してください";
+    if (formData.type === 'company' && !formData.companyName) {
+      newErrors.companyName = '会社名を入力してください';
     }
-    if (!formData.name) newErrors.name = "担当者名を入力してください";
-    if (!formData.email) newErrors.email = "メールアドレスを入力してください";
+    if (!formData.name) newErrors.name = '担当者名を入力してください';
+    if (!formData.email) newErrors.email = 'メールアドレスを入力してください';
     else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "正しいメールアドレス形式で入力してください";
+      newErrors.email = '正しいメールアドレス形式で入力してください';
     if (!formData.phoneNumber)
-      newErrors.phoneNumber = "電話番号を入力してください";
+      newErrors.phoneNumber = '電話番号を入力してください';
     else if (!/^[0-9-+\s()]+$/.test(formData.phoneNumber))
-      newErrors.phoneNumber = "電話番号は数字とハイフン等で入力してください";
+      newErrors.phoneNumber = '電話番号は数字とハイフン等で入力してください';
 
     if (!formData.inquiryType)
-      newErrors.inquiryType = "お問い合わせ種別を選択してください";
+      newErrors.inquiryType = 'お問い合わせ種別を選択してください';
     if (!formData.content)
-      newErrors.content = "お問い合わせ内容を入力してください";
+      newErrors.content = 'お問い合わせ内容を入力してください';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -105,27 +108,52 @@ export const ContactForm = () => {
 
   const handleNext = () => {
     if (validate()) {
-      setStep("confirm");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setStep('confirm');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleBack = () => {
-    setStep("input");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setStep('input');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSubmit = async () => {
     setLoading(true);
-    // Dummy implementation: Simulate network request
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setLoading(false);
-    setStep("complete");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setSubmitError('');
+
+    try {
+      const endpoint = process.env.NEXT_PUBLIC_CONTACT_API_URL;
+      if (!endpoint) {
+        throw new Error('NEXT_PUBLIC_CONTACT_API_URL is not configured');
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      setStep('complete');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error(error);
+      setSubmitError(
+        '送信に失敗しました。時間をおいて再度お試しいただくか、別の連絡手段でお問い合わせください。',
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   // 入力画面
-  if (step === "input") {
+  if (step === 'input') {
     return (
       <Container maxWidth="md">
         <Paper
@@ -142,7 +170,7 @@ export const ContactForm = () => {
               variant="h5"
               fontWeight="bold"
               gutterBottom
-              sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
             >
               お問い合わせフォーム
             </Typography>
@@ -157,7 +185,7 @@ export const ContactForm = () => {
             <FormControl component="fieldset">
               <FormLabel
                 component="legend"
-                sx={{ mb: 1, fontWeight: "bold", fontSize: "0.9rem" }}
+                sx={{ mb: 1, fontWeight: 'bold', fontSize: '0.9rem' }}
               >
                 お問い合わせの種類
               </FormLabel>
@@ -183,18 +211,18 @@ export const ContactForm = () => {
 
             <TextField
               fullWidth
-              label={formData.type === "company" ? "会社名" : "屋号（任意）"}
+              label={formData.type === 'company' ? '会社名' : '屋号（任意）'}
               name="companyName"
               placeholder={
-                formData.type === "company"
-                  ? "株式会社スエキチシステム"
-                  : "スエキチ商店"
+                formData.type === 'company'
+                  ? '株式会社スエキチシステム'
+                  : 'スエキチ商店'
               }
               value={formData.companyName}
               onChange={handleChange}
               error={!!errors.companyName}
               helperText={errors.companyName}
-              required={formData.type === "company"}
+              required={formData.type === 'company'}
               InputLabelProps={{ shrink: true }}
             />
 
@@ -242,7 +270,7 @@ export const ContactForm = () => {
             <FormControl component="fieldset" error={!!errors.inquiryType}>
               <FormLabel
                 component="legend"
-                sx={{ mb: 1, fontWeight: "bold", fontSize: "0.9rem" }}
+                sx={{ mb: 1, fontWeight: 'bold', fontSize: '0.9rem' }}
               >
                 お問い合わせ種別
               </FormLabel>
@@ -314,9 +342,9 @@ export const ContactForm = () => {
                   px: 6,
                   py: 1.5,
                   borderRadius: 50,
-                  fontWeight: "bold",
-                  fontFamily: "var(--font-senobi-gothic)",
-                  fontSize: "1.1rem",
+                  fontWeight: 'bold',
+                  fontFamily: 'var(--font-senobi-gothic)',
+                  fontSize: '1.1rem',
                 }}
               >
                 確認画面へ
@@ -328,27 +356,27 @@ export const ContactForm = () => {
     );
   }
 
-  const getInquiryTypeLabel = (type: InquiryType | "") => {
+  const getInquiryTypeLabel = (type: InquiryType | '') => {
     switch (type) {
-      case "dev_web_system":
-        return "Webシステム開発";
-      case "dev_website":
-        return "Webサイト制作";
-      case "dev_app":
-        return "モバイルアプリ開発";
-      case "ai_solution":
-        return "AIソリューション";
-      case "consultation":
-        return "技術相談・コンサルティング";
-      case "other":
-        return "その他";
+      case 'dev_web_system':
+        return 'Webシステム開発';
+      case 'dev_website':
+        return 'Webサイト制作';
+      case 'dev_app':
+        return 'モバイルアプリ開発';
+      case 'ai_solution':
+        return 'AIソリューション';
+      case 'consultation':
+        return '技術相談・コンサルティング';
+      case 'other':
+        return 'その他';
       default:
-        return "";
+        return '';
     }
   };
 
   // 確認画面
-  if (step === "confirm") {
+  if (step === 'confirm') {
     return (
       <Container maxWidth="md">
         <Paper
@@ -365,7 +393,7 @@ export const ContactForm = () => {
               variant="h5"
               fontWeight="bold"
               gutterBottom
-              sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
             >
               入力内容の確認
             </Typography>
@@ -381,14 +409,14 @@ export const ContactForm = () => {
               mb: 6,
               borderRadius: 4,
               bgcolor:
-                theme.palette.mode === "dark"
-                  ? "rgba(255,255,255,0.05)"
-                  : "#f9f9f9",
+                theme.palette.mode === 'dark'
+                  ? 'rgba(255,255,255,0.05)'
+                  : '#f9f9f9',
             }}
           >
             <Stack spacing={3}>
-              <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
@@ -397,25 +425,25 @@ export const ContactForm = () => {
                     お問い合わせの種類
                   </Typography>
                 </Box>
-                <Box width={{ xs: "100%", sm: "65%" }}>
+                <Box width={{ xs: '100%', sm: '65%' }}>
                   <Typography variant="body1">
-                    {formData.type === "company" ? "法人" : "個人"}
+                    {formData.type === 'company' ? '法人' : '個人'}
                   </Typography>
                 </Box>
               </Box>
 
               {formData.companyName && (
-                <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                  <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+                <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                  <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                     <Typography
                       variant="subtitle2"
                       color="text.secondary"
                       fontWeight="bold"
                     >
-                      {formData.type === "company" ? "会社名" : "屋号"}
+                      {formData.type === 'company' ? '会社名' : '屋号'}
                     </Typography>
                   </Box>
-                  <Box width={{ xs: "100%", sm: "65%" }}>
+                  <Box width={{ xs: '100%', sm: '65%' }}>
                     <Typography variant="body1">
                       {formData.companyName}
                     </Typography>
@@ -423,8 +451,8 @@ export const ContactForm = () => {
                 </Box>
               )}
 
-              <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
@@ -433,13 +461,13 @@ export const ContactForm = () => {
                     担当者名
                   </Typography>
                 </Box>
-                <Box width={{ xs: "100%", sm: "65%" }}>
+                <Box width={{ xs: '100%', sm: '65%' }}>
                   <Typography variant="body1">{formData.name}</Typography>
                 </Box>
               </Box>
 
-              <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
@@ -448,15 +476,15 @@ export const ContactForm = () => {
                     担当者電話番号
                   </Typography>
                 </Box>
-                <Box width={{ xs: "100%", sm: "65%" }}>
+                <Box width={{ xs: '100%', sm: '65%' }}>
                   <Typography variant="body1">
                     {formData.phoneNumber}
                   </Typography>
                 </Box>
               </Box>
 
-              <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
@@ -465,13 +493,13 @@ export const ContactForm = () => {
                     メールアドレス
                   </Typography>
                 </Box>
-                <Box width={{ xs: "100%", sm: "65%" }}>
+                <Box width={{ xs: '100%', sm: '65%' }}>
                   <Typography variant="body1">{formData.email}</Typography>
                 </Box>
               </Box>
 
-              <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
@@ -480,15 +508,15 @@ export const ContactForm = () => {
                     お問い合わせ種別
                   </Typography>
                 </Box>
-                <Box width={{ xs: "100%", sm: "65%" }}>
+                <Box width={{ xs: '100%', sm: '65%' }}>
                   <Typography variant="body1">
                     {getInquiryTypeLabel(formData.inquiryType)}
                   </Typography>
                 </Box>
               </Box>
 
-              <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
-                <Box width={{ xs: "100%", sm: "35%" }} mb={{ xs: 1, sm: 0 }}>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
+                <Box width={{ xs: '100%', sm: '35%' }} mb={{ xs: 1, sm: 0 }}>
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
@@ -497,10 +525,10 @@ export const ContactForm = () => {
                     お問い合わせ内容
                   </Typography>
                 </Box>
-                <Box width={{ xs: "100%", sm: "65%" }}>
+                <Box width={{ xs: '100%', sm: '65%' }}>
                   <Typography
                     variant="body1"
-                    sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+                    sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
                   >
                     {formData.content}
                   </Typography>
@@ -510,11 +538,17 @@ export const ContactForm = () => {
           </Paper>
 
           <Stack
-            direction={{ xs: "column-reverse", sm: "row" }}
+            direction={{ xs: 'column-reverse', sm: 'row' }}
             spacing={2}
             justifyContent="center"
             alignItems="center"
           >
+            {submitError && (
+              <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+                {submitError}
+              </Alert>
+            )}
+
             <Button
               variant="outlined"
               size="large"
@@ -525,7 +559,7 @@ export const ContactForm = () => {
                 px: 4,
                 py: 1.5,
                 borderRadius: 50,
-                width: { xs: "100%", sm: "auto" },
+                width: { xs: '100%', sm: 'auto' },
               }}
             >
               戻る
@@ -546,13 +580,13 @@ export const ContactForm = () => {
                 px: 6,
                 py: 1.5,
                 borderRadius: 50,
-                fontWeight: "bold",
-                fontFamily: "var(--font-senobi-gothic)",
-                fontSize: "1.1rem",
-                width: { xs: "100%", sm: "auto" },
+                fontWeight: 'bold',
+                fontFamily: 'var(--font-senobi-gothic)',
+                fontSize: '1.1rem',
+                width: { xs: '100%', sm: 'auto' },
               }}
             >
-              {loading ? "送信中..." : "送信する"}
+              {loading ? '送信中...' : '送信する'}
             </Button>
           </Stack>
         </Paper>
@@ -570,31 +604,31 @@ export const ContactForm = () => {
           borderRadius: 8,
           border: `1px solid ${theme.palette.divider}`,
           bgcolor: theme.palette.background.paper,
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         <Box
           sx={{
             width: 80,
             height: 80,
-            borderRadius: "50%",
-            bgcolor: "success.light",
-            color: "success.main",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            mx: "auto",
+            borderRadius: '50%',
+            bgcolor: 'success.light',
+            color: 'success.main',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mx: 'auto',
             mb: 4,
           }}
         >
-          <CheckCircleOutlineIcon sx={{ fontSize: 50, color: "#fff" }} />
+          <CheckCircleOutlineIcon sx={{ fontSize: 50, color: '#fff' }} />
         </Box>
 
         <Typography
           variant="h4"
           fontWeight="bold"
           gutterBottom
-          sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+          sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
         >
           お問い合わせありがとうございます
         </Typography>
@@ -613,11 +647,11 @@ export const ContactForm = () => {
           severity="warning"
           icon={<WarningAmberIcon fontSize="inherit" />}
           sx={{
-            textAlign: "left",
+            textAlign: 'left',
             mb: 6,
             borderRadius: 4,
-            width: "fit-content",
-            mx: "auto",
+            width: 'fit-content',
+            mx: 'auto',
           }}
         >
           <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
@@ -642,8 +676,8 @@ export const ContactForm = () => {
             px: 6,
             py: 1.5,
             borderRadius: 50,
-            fontWeight: "bold",
-            fontFamily: "var(--font-senobi-gothic)",
+            fontWeight: 'bold',
+            fontFamily: 'var(--font-senobi-gothic)',
           }}
         >
           トップページへ戻る

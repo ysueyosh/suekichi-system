@@ -1,0 +1,8 @@
+{
+  "ContactFunction": {
+    "SOURCE_EMAIL": "sender@example.com",
+    "DESTINATION_EMAIL": "notify@example.com",
+    "ALLOWED_ORIGIN": "http://localhost:3000",
+    "DRY_RUN": "true"
+  }
+}

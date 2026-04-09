@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Box,
@@ -8,10 +8,9 @@ import {
   Stack,
   IconButton,
   useTheme,
-} from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import GitHubIcon from "@mui/icons-material/GitHub";
+} from '@mui/material';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 export const Footer = () => {
   const theme = useTheme();
@@ -20,29 +19,29 @@ export const Footer = () => {
     <Box
       component="footer"
       sx={{
-        bgcolor: "#f5f5f5",
+        bgcolor: '#f5f5f5',
         pt: 8,
         pb: 4,
-        position: "relative",
-        overflow: "hidden",
+        position: 'relative',
+        overflow: 'hidden',
         borderTop: `1px solid ${theme.palette.divider}`,
       }}
     >
       <Container maxWidth="lg">
         <Box
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
+            display: 'flex',
+            flexWrap: 'wrap',
             gap: 4,
-            justifyContent: "space-between",
+            justifyContent: 'space-between',
           }}
         >
           {/* Main Brand Column */}
-          <Box sx={{ flex: "1 1 300px", maxWidth: "100%" }}>
+          <Box sx={{ flex: '1 1 300px', maxWidth: '100%' }}>
             <Typography
               variant="h5"
               sx={{
-                fontFamily: "var(--font-senobi-gothic)",
+                fontFamily: 'var(--font-senobi-gothic)',
                 fontWeight: 700,
                 color: theme.palette.text.primary,
                 mb: 2,
@@ -56,25 +55,36 @@ export const Footer = () => {
               あなたのビジネスを加速させるWebパートナー。
             </Typography>
             <Stack direction="row" spacing={1}>
-              <IconButton color="primary" aria-label="Twitter">
-                <TwitterIcon />
+              <IconButton
+                color="error"
+                aria-label="YouTube"
+                component="a"
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <YouTubeIcon />
               </IconButton>
-              <IconButton color="secondary" aria-label="Instagram">
+              <IconButton
+                color="secondary"
+                aria-label="Instagram"
+                component="a"
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <InstagramIcon />
-              </IconButton>
-              <IconButton aria-label="GitHub">
-                <GitHubIcon />
               </IconButton>
             </Stack>
           </Box>
 
           {/* Links Column */}
-          <Box sx={{ flex: "0 1 200px" }}>
+          <Box sx={{ flex: '0 1 200px' }}>
             <Typography
               variant="subtitle1"
               fontWeight="bold"
               gutterBottom
-              sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
             >
               Service
             </Typography>
@@ -92,12 +102,12 @@ export const Footer = () => {
           </Box>
 
           {/* Links Column */}
-          <Box sx={{ flex: "0 1 200px" }}>
+          <Box sx={{ flex: '0 1 200px' }}>
             <Typography
               variant="subtitle1"
               fontWeight="bold"
               gutterBottom
-              sx={{ fontFamily: "var(--font-senobi-gothic)" }}
+              sx={{ fontFamily: 'var(--font-senobi-gothic)' }}
             >
               Company
             </Typography>
@@ -115,7 +125,7 @@ export const Footer = () => {
           </Box>
         </Box>
 
-        <Box sx={{ mt: 8, textAlign: "center" }}>
+        <Box sx={{ mt: 8, textAlign: 'center' }}>
           <Typography variant="caption" color="text.secondary">
             &copy; {new Date().getFullYear()} Suekichi System. All rights
             reserved.
